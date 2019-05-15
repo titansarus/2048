@@ -10,7 +10,7 @@ public abstract class AbsMenu {
 
     public abstract void getInput();
 
-    public void getInputFromPatter(ArrayList<Pattern> patterns)
+    public void getInputFromPattern(ArrayList<Pattern> patterns)
     {
         boolean isMatched = false;
         String s = scanner.nextLine();
@@ -42,7 +42,7 @@ public abstract class AbsMenu {
         System.out.println(message);
     }
 
-    static void errorPrinter(Exception e)
+    public static void errorPrinter(Exception e)
     {
         System.out.println(e.getMessage());
     }

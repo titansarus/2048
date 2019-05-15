@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Account {
     private static ArrayList<Account> allOfAccounts = new ArrayList<>();
     private static Account loginedAccount = null;
+    private int highscore =0;
     private String username;
     private String password;
 
@@ -63,5 +64,13 @@ public class Account {
 
     public static void setLoginedAccount(Account loginedAccount) {
         Account.loginedAccount = loginedAccount;
+    }
+
+    public int getHighscore() {
+        return highscore;
+    }
+
+    public void setHighscore(int highscore) {
+        this.highscore = highscore;
     }
 }

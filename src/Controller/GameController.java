@@ -1,10 +1,8 @@
 package Controller;
 
 import Model.Account;
-import ProgramExceptions.AlreadyLoginedException;
-import ProgramExceptions.InvalidPasswordException;
-import ProgramExceptions.NoUserExistException;
-import ProgramExceptions.UserExistException;
+import Model.Game;
+import ProgramExceptions.*;
 import View.*;
 
 import java.util.Deque;
@@ -42,6 +40,13 @@ public class GameController {
         menus.add(new MainMenu());
     }
 
+    public static void accountCreatorValueGettings()
+    {
+        String username = AccountMenu.usernamePrompt();
+        String password = AccountMenu.passwordPrompt();
+        accountCreator(username,password);
+    }
+
     public static void accountCreator(String username, String password) {
         if (!Account.accountExist(username)) {
             Account account = new Account(username, password);
@@ -51,6 +56,34 @@ public class GameController {
         } else {
             throw new UserExistException();
         }
+    }
+    public static void createNewGameInit()
+    {
+        try {
+            int n = MainMenu.sizeOfBoardGetter();
+            createGame(n);
+        }
+        catch (InvalidBoardSizeException e)
+        {
+            AbsMenu.errorPrinter(e);
+        }
+    }
+    public static void createGame(int n)
+    {
+        Game game = new Game(Account.getLoginedAccount(),n);
+        menus.add(new GameMenu(game));
+    }
+    public static void logout()
+    {
+        Account.setLoginedAccount(null);
+    }
+    public static void currentAccountPresenter()
+    {
+        AccountMenu.showAccount(Account.getLoginedAccount());
+    }
+    public static void exit()
+    {
+        System.exit(0);
     }
 
     public static void backToLastMenu() {

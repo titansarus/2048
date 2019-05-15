@@ -80,3 +80,4 @@ hs_err_pid*
 .gitignore
 .idea/
 2048_Text.iml
+/2048.iml
