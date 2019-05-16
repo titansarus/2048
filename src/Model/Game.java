@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
+    private static final double chanceOfGeneratingTwo = 0.7158;
     private Account account;
     private int n;
-    private int[][] board;
+    private Block[][] board; //TODO Must Be an Object
     private int score = 0;
 
 
     public Game(Account account, int n) {
         this.account = account;
         this.n = n;
-        board = new int[n][n];
+        board = new Block[n][n];
     }
 
     public void randomNumberPutter(int numberOfRandoms) {
@@ -22,13 +23,71 @@ public class Game {
             Random random = new Random();
             int pointIndex = random.nextInt(gettingEmptyCells().size());
             int point = emptyCells.get(pointIndex);
-            int[] nums = new int[]{2,4};
-            int numIndex = random.nextInt(2);
-            int row = point/getN();
-            int column = point%getN();
-            board[row][column] =nums[numIndex];
+            double chance = random.nextDouble();
+            int randNumber2or4;
+            if (chance < chanceOfGeneratingTwo) { //Generate 2 more than 4
+                randNumber2or4 = 2;
+            } else {
+                randNumber2or4 = 4;
+            }
+            int row = point / getN();
+            int column = point % getN();
+            board[row][column] = new Block(randNumber2or4);
             emptyCells.remove(pointIndex);
         }
+    }
+    public void shiftColumnDown(int column) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < getN(); i++) {
+                for (int j = getN()-1-1; j >= 0; j--) {
+                    if (getBoard()[j][column] != null && getBoard()[j+1][column] == null) {
+                        getBoard()[j+1][column] = getBoard()[j][column];
+                        getBoard()[j][column] = null;
+                    }
+                }
+            }
+        });
+        t1.start();
+    }
+
+    public void shiftColumnUp(int column) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < getN(); i++) {
+                for (int j = 1; j <= getN()-1; j++) {
+                    if (getBoard()[j][column] != null && getBoard()[j-1][column] == null) {
+                        getBoard()[j-1][column] = getBoard()[j][column];
+                        getBoard()[j][column] = null;
+                    }
+                }
+            }
+        });
+        t1.start();
+    }
+    public void shiftRowLeft(int row) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < getN(); i++) {
+                for (int j = 1; j <= getN()-1; j++) {
+                    if (getBoard()[row][j] != null && getBoard()[row][j - 1] == null) {
+                        getBoard()[row][j - 1] = getBoard()[row][j];
+                        getBoard()[row][j] = null;
+                    }
+                }
+            }
+        });
+        t1.start();
+    }
+    public void shiftRowRight(int row) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < getN(); i++) {
+                for (int j = getN()-1-1; j>=0 ;j--) {
+                    if (getBoard()[row][j] != null && getBoard()[row][j+ 1] == null) {
+                        getBoard()[row][j + 1] = getBoard()[row][j];
+                        getBoard()[row][j] = null;
+                    }
+                }
+            }
+        });
+        t1.start();
     }
 
     public boolean isAnyEmptyCells() {
@@ -43,7 +102,7 @@ public class Game {
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == 0) {
+                if (board[i][j] == null) {
                     result.add(i * n + j);
                 }
             }
@@ -68,11 +127,11 @@ public class Game {
         this.n = n;
     }
 
-    public int[][] getBoard() {
+    public Block[][] getBoard() {
         return board;
     }
 
-    public void setBoard(int[][] board) {
+    public void setBoard(Block[][] board) {
         this.board = board;
     }
 

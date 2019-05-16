@@ -21,68 +21,105 @@ public class GameController {
         }
     }
 
-    public static void  login (String username , String password)
-    {
-        if (Account.getLoginedAccount()!=null && Account.getLoginedAccount().getUsername().equals(username))
-        {
+    public static void login(String username, String password) {
+        if (Account.getLoginedAccount() != null && Account.getLoginedAccount().getUsername().equals(username)) {
             throw new AlreadyLoginedException();
         }
-        if(!Account.accountExist(username))
-        {
+        if (!Account.accountExist(username)) {
             throw new NoUserExistException();
         }
         Account account = Account.findUser(username);
-        if (!account.getPassword().equals(password))
-        {
+        if (!account.getPassword().equals(password)) {
             throw new InvalidPasswordException();
         }
         Account.setLoginedAccount(account);
         menus.add(new MainMenu());
     }
 
-    public static void accountCreatorValueGettings()
-    {
+    public static void accountCreatorValueGettings() {
         String username = AccountMenu.usernamePrompt();
         String password = AccountMenu.passwordPrompt();
-        accountCreator(username,password);
+        accountCreator(username, password);
     }
 
     public static void accountCreator(String username, String password) {
         if (!Account.accountExist(username)) {
             Account account = new Account(username, password);
-           // Account.setLoginedAccount(account);
+            // Account.setLoginedAccount(account);
             AbsMenu.notificationPrinter(ConstantMessages.USER_CREATED.getMessage() + username);
-           // menus.add(new MainMenu());
+            // menus.add(new MainMenu());
         } else {
             throw new UserExistException();
         }
     }
-    public static void createNewGameInit()
-    {
+
+    public static void createNewGameInit() {
         try {
             int n = MainMenu.sizeOfBoardGetter();
             createGame(n);
-        }
-        catch (InvalidBoardSizeException e)
-        {
+        } catch (InvalidBoardSizeException e) {
             AbsMenu.errorPrinter(e);
         }
     }
-    public static void createGame(int n)
-    {
-        Game game = new Game(Account.getLoginedAccount(),n);
+
+    public static void createGame(int n) {
+        Game game = new Game(Account.getLoginedAccount(), n);
+        game.randomNumberPutter(2);
         menus.add(new GameMenu(game));
     }
-    public static void logout()
-    {
+
+    public static void mover(Game game, char c) {
+        if (c == 'w' || c == 'W') {
+            shiftUp(game);
+        }
+        if (c == 'd' || c == 'D') {
+            shiftRight(game);
+        }
+        if (c == 's' || c == 'S') {
+            shiftDown(game);
+        }
+        if (c == 'a' || c == 'A') {
+            shiftLeft(game);
+        }
+        game.randomNumberPutter(1);
+    }
+
+    public static void shiftDown(Game game) {
+        for (int i = 0; i < game.getN(); i++) {
+            game.shiftColumnDown(i);
+        }
+
+    }
+
+    public static void shiftUp(Game game) {
+        for (int i = 0; i < game.getN(); i++) {
+            game.shiftColumnUp(i);
+        }
+
+    }
+
+    public static void shiftRight(Game game) {
+        for (int i = 0; i < game.getN(); i++) {
+            game.shiftRowRight(i);
+        }
+
+    }
+
+    public static void shiftLeft(Game game) {
+        for (int i = 0; i < game.getN(); i++) {
+            game.shiftRowLeft(i);
+        }
+    }
+
+    public static void logout() {
         Account.setLoginedAccount(null);
     }
-    public static void currentAccountPresenter()
-    {
+
+    public static void currentAccountPresenter() {
         AccountMenu.showAccount(Account.getLoginedAccount());
     }
-    public static void exit()
-    {
+
+    public static void exit() {
         System.exit(0);
     }
 
