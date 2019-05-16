@@ -114,6 +114,13 @@ public class GameController {
         }
         game.setChangeOfBlocksToFalse();
         game.randomNumberPutter(1);
+        if(!game.checkIsAnyMovePossible())
+        {
+            //TODO ADD A GAME ENDING STATEMENT
+            backFromGame(game);
+            return;
+        }
+
         ((GameMenu) menus.peekLast()).showBoard(game.getBoard(),game.getN());
     }
 
@@ -153,6 +160,12 @@ public class GameController {
             account.setHighscore(game.getScore());
         }
         backToLastMenu();
+    }
+
+    public static void showleaderboard()
+    {
+        Account.sortAccounts();
+        AccountMenu.showAllAccounts(Account.getAllOfAccounts());
     }
 
     public static void logout() {

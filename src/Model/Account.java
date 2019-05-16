@@ -1,11 +1,12 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Account {
+public class Account implements Comparable<Account> {
     private static ArrayList<Account> allOfAccounts = new ArrayList<>();
     private static Account loginedAccount = null;
-    private int highscore =0;
+    private int highscore = 0;
     private String username;
     private String password;
 
@@ -22,6 +23,10 @@ public class Account {
             return true;
         }
         return false;
+    }
+
+    public static void sortAccounts() {
+        Collections.sort(getAllOfAccounts());
     }
 
 
@@ -72,5 +77,16 @@ public class Account {
 
     public void setHighscore(int highscore) {
         this.highscore = highscore;
+    }
+
+    @Override
+    public String toString() {
+        String s = "Account username:" + this.getUsername() + "\t\t\tHighscore:" + getHighscore();
+        return s;
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return o.getHighscore()-this.getHighscore();
     }
 }
