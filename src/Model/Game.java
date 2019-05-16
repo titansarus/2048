@@ -36,13 +36,35 @@ public class Game {
             emptyCells.remove(pointIndex);
         }
     }
+
+    public void setChangeOfBlocksToFalse()
+    {
+        for (int i =0;i<getN();i++)
+        {
+            for (int j=0;j<getN();j++)
+            {
+                if (getBoard()[i][j]!=null)
+                {
+                    getBoard()[i][j].setChanged(false);
+                }
+            }
+        }
+    }
+
     public void shiftColumnDown(int column) {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
-                for (int j = getN()-1-1; j >= 0; j--) {
-                    if (getBoard()[j][column] != null && getBoard()[j+1][column] == null) {
-                        getBoard()[j+1][column] = getBoard()[j][column];
+                for (int j = getN() - 1 - 1; j >= 0; j--) {
+                    if (getBoard()[j][column] != null && getBoard()[j + 1][column] == null) {
+                        getBoard()[j + 1][column] = getBoard()[j][column];
                         getBoard()[j][column] = null;
+                    } else if (getBoard()[j][column] != null && getBoard()[j + 1][column] != null &&
+                            getBoard()[j + 1][column].getNum() == getBoard()[j][column].getNum()
+                            && !getBoard()[j + 1][column].isChanged() && !getBoard()[j][column].isChanged()) {
+                        getBoard()[j + 1][column] = getBoard()[j][column];
+                        getBoard()[j][column] = null;
+                        getBoard()[j + 1][column].doubleNum();
+                        getBoard()[j + 1][column].setChanged(true);
                     }
                 }
             }
@@ -53,36 +75,59 @@ public class Game {
     public void shiftColumnUp(int column) {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
-                for (int j = 1; j <= getN()-1; j++) {
-                    if (getBoard()[j][column] != null && getBoard()[j-1][column] == null) {
-                        getBoard()[j-1][column] = getBoard()[j][column];
+                for (int j = 1; j <= getN() - 1; j++) {
+                    if (getBoard()[j][column] != null && getBoard()[j - 1][column] == null) {
+                        getBoard()[j - 1][column] = getBoard()[j][column];
                         getBoard()[j][column] = null;
+                    } else if (getBoard()[j][column] != null && getBoard()[j - 1][column] != null &&
+                            getBoard()[j - 1][column].getNum() == getBoard()[j][column].getNum()
+                            && !getBoard()[j - 1][column].isChanged() && !getBoard()[j][column].isChanged()) {
+                        getBoard()[j - 1][column] = getBoard()[j][column];
+                        getBoard()[j][column] = null;
+                        getBoard()[j - 1][column].doubleNum();
+                        getBoard()[j - 1][column].setChanged(true);
                     }
                 }
             }
         });
         t1.start();
     }
+
     public void shiftRowLeft(int row) {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
-                for (int j = 1; j <= getN()-1; j++) {
+                for (int j = 1; j <= getN() - 1; j++) {
                     if (getBoard()[row][j] != null && getBoard()[row][j - 1] == null) {
                         getBoard()[row][j - 1] = getBoard()[row][j];
                         getBoard()[row][j] = null;
+                    } else if (getBoard()[row][j] != null && getBoard()[row][j-1] != null &&
+                            getBoard()[row][j-1].getNum() == getBoard()[row][j].getNum()
+                            && !getBoard()[row][j-1].isChanged() && !getBoard()[row][j].isChanged()) {
+                        getBoard()[row][j-1] = getBoard()[row][j];
+                        getBoard()[row][j] = null;
+                        getBoard()[row][j-1].doubleNum();
+                        getBoard()[row][j-1].setChanged(true);
                     }
                 }
             }
         });
         t1.start();
     }
+
     public void shiftRowRight(int row) {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
-                for (int j = getN()-1-1; j>=0 ;j--) {
-                    if (getBoard()[row][j] != null && getBoard()[row][j+ 1] == null) {
+                for (int j = getN() - 1 - 1; j >= 0; j--) {
+                    if (getBoard()[row][j] != null && getBoard()[row][j + 1] == null) {
                         getBoard()[row][j + 1] = getBoard()[row][j];
                         getBoard()[row][j] = null;
+                    } else if (getBoard()[row][j] != null && getBoard()[row][j+1] != null &&
+                            getBoard()[row][j+1].getNum() == getBoard()[row][j].getNum()
+                            && !getBoard()[row][j+1].isChanged() && !getBoard()[row][j].isChanged()) {
+                        getBoard()[row][j+1] = getBoard()[row][j];
+                        getBoard()[row][j] = null;
+                        getBoard()[row][j+1].doubleNum();
+                        getBoard()[row][j+1].setChanged(true);
                     }
                 }
             }

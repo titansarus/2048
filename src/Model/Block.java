@@ -4,6 +4,11 @@ public class Block {
     int num;
     boolean isChanged = false;
 
+    public void doubleNum()
+    {
+        setNum(getNum()*2);
+    }
+
     public Block(int num) {
         this.num = num;
     }

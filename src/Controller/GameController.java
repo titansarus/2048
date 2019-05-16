@@ -8,6 +8,7 @@ import View.*;
 import java.util.Deque;
 import java.util.LinkedList;
 
+
 public class GameController {
     public static Deque<AbsMenu> menus = new LinkedList<>();
 
@@ -81,6 +82,14 @@ public class GameController {
         if (c == 'a' || c == 'A') {
             shiftLeft(game);
         }
+        try {
+            Thread.sleep(100);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        game.setChangeOfBlocksToFalse();
         game.randomNumberPutter(1);
     }
 
