@@ -9,6 +9,7 @@ public class Game {
     private int n;
     private Block[][] board; //TODO Must Be an Object
     private int score = 0;
+    private final Object score_lock = new Object();
 
 
     public Game(Account account, int n) {
@@ -16,6 +17,94 @@ public class Game {
         this.n = n;
         board = new Block[n][n];
     }
+
+
+    public boolean checkIsAnyMovePossible() {
+        if (isAnyEmptyCells()) {
+            return true;
+        } else {
+            for (int i = 0; i < getN(); i++) {
+                for (int j = 0; j < getN(); j++) {
+                    if (checkIfBlockCanMove(getBoard()[i][j], i, j)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean checkIsUpMovePossibleForBoard() {
+        for (int i = 0; i < getN(); i++) {
+            for (int j = 0; j < getN(); j++) {
+                if (getBoard()[i][j] != null && checkIfUpMovePossibleForBlock(getBoard()[i][j], i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIsDownMovePossibleForBoard() {
+        for (int i = 0; i < getN(); i++) {
+            for (int j = 0; j < getN(); j++) {
+                if (getBoard()[i][j] != null && checkIfDownMovePossibleForBlock(getBoard()[i][j], i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIsLeftMovePossibleForBoard() {
+        for (int i = 0; i < getN(); i++) {
+            for (int j = 0; j < getN(); j++) {
+                if (getBoard()[i][j] != null && checkIfLeftMovePossibleForBlock(getBoard()[i][j], i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIsRightMovePossibleForBoard() {
+        for (int i = 0; i < getN(); i++) {
+            for (int j = 0; j < getN(); j++) {
+                if (getBoard()[i][j] != null && checkIfRightMovePossibleForBlock(getBoard()[i][j], i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfBlockCanMove(Block block, int row, int column) {
+        if (block == null) {
+            return false;
+        }
+        return (checkIfUpMovePossibleForBlock(block, row, column) || checkIfDownMovePossibleForBlock(block, row, column)
+                || checkIfRightMovePossibleForBlock(block, row, column) || checkIfLeftMovePossibleForBlock(block, row, column));
+
+
+    }
+
+    public boolean checkIfLeftMovePossibleForBlock(Block block, int row, int column) {
+        return (block != null && column - 1 >= 0 && (board[row][column - 1] == null || board[row][column - 1].getNum() == block.getNum()));
+    }
+
+    public boolean checkIfRightMovePossibleForBlock(Block block, int row, int column) {
+        return (block != null && column + 1 < getN() && (board[row][column + 1] == null || board[row][column + 1].getNum() == block.getNum()));
+    }
+
+    public boolean checkIfDownMovePossibleForBlock(Block block, int row, int column) {
+        return (block != null && row + 1 < getN() && (board[row + 1][column] == null || board[row + 1][column].getNum() == block.getNum()));
+    }
+
+    public boolean checkIfUpMovePossibleForBlock(Block block, int row, int column) {
+        return (block != null && row - 1 >= 0 && (board[row - 1][column] == null || board[row - 1][column].getNum() == block.getNum()));
+    }
+
 
     public void randomNumberPutter(int numberOfRandoms) {
         ArrayList<Integer> emptyCells = gettingEmptyCells();
@@ -37,14 +126,10 @@ public class Game {
         }
     }
 
-    public void setChangeOfBlocksToFalse()
-    {
-        for (int i =0;i<getN();i++)
-        {
-            for (int j=0;j<getN();j++)
-            {
-                if (getBoard()[i][j]!=null)
-                {
+    public void setChangeOfBlocksToFalse() {
+        for (int i = 0; i < getN(); i++) {
+            for (int j = 0; j < getN(); j++) {
+                if (getBoard()[i][j] != null) {
                     getBoard()[i][j].setChanged(false);
                 }
             }
@@ -63,8 +148,14 @@ public class Game {
                             && !getBoard()[j + 1][column].isChanged() && !getBoard()[j][column].isChanged()) {
                         getBoard()[j + 1][column] = getBoard()[j][column];
                         getBoard()[j][column] = null;
+
+                        int score_increase = getBoard()[j + 1][column].getNum() * 2;
+
                         getBoard()[j + 1][column].doubleNum();
                         getBoard()[j + 1][column].setChanged(true);
+                        synchronized (score_lock) {
+                            increaseScore(score_increase);
+                        }
                     }
                 }
             }
@@ -84,8 +175,14 @@ public class Game {
                             && !getBoard()[j - 1][column].isChanged() && !getBoard()[j][column].isChanged()) {
                         getBoard()[j - 1][column] = getBoard()[j][column];
                         getBoard()[j][column] = null;
+
+                        int score_increase = getBoard()[j - 1][column].getNum() * 2;
+
                         getBoard()[j - 1][column].doubleNum();
                         getBoard()[j - 1][column].setChanged(true);
+                        synchronized (score_lock) {
+                            increaseScore(score_increase);
+                        }
                     }
                 }
             }
@@ -100,13 +197,19 @@ public class Game {
                     if (getBoard()[row][j] != null && getBoard()[row][j - 1] == null) {
                         getBoard()[row][j - 1] = getBoard()[row][j];
                         getBoard()[row][j] = null;
-                    } else if (getBoard()[row][j] != null && getBoard()[row][j-1] != null &&
-                            getBoard()[row][j-1].getNum() == getBoard()[row][j].getNum()
-                            && !getBoard()[row][j-1].isChanged() && !getBoard()[row][j].isChanged()) {
-                        getBoard()[row][j-1] = getBoard()[row][j];
+                    } else if (getBoard()[row][j] != null && getBoard()[row][j - 1] != null &&
+                            getBoard()[row][j - 1].getNum() == getBoard()[row][j].getNum()
+                            && !getBoard()[row][j - 1].isChanged() && !getBoard()[row][j].isChanged()) {
+                        getBoard()[row][j - 1] = getBoard()[row][j];
                         getBoard()[row][j] = null;
-                        getBoard()[row][j-1].doubleNum();
-                        getBoard()[row][j-1].setChanged(true);
+
+                        int score_increase = getBoard()[row][j - 1].getNum() * 2;
+
+                        getBoard()[row][j - 1].doubleNum();
+                        getBoard()[row][j - 1].setChanged(true);
+                        synchronized (score_lock) {
+                            increaseScore(score_increase);
+                        }
                     }
                 }
             }
@@ -121,13 +224,19 @@ public class Game {
                     if (getBoard()[row][j] != null && getBoard()[row][j + 1] == null) {
                         getBoard()[row][j + 1] = getBoard()[row][j];
                         getBoard()[row][j] = null;
-                    } else if (getBoard()[row][j] != null && getBoard()[row][j+1] != null &&
-                            getBoard()[row][j+1].getNum() == getBoard()[row][j].getNum()
-                            && !getBoard()[row][j+1].isChanged() && !getBoard()[row][j].isChanged()) {
-                        getBoard()[row][j+1] = getBoard()[row][j];
+                    } else if (getBoard()[row][j] != null && getBoard()[row][j + 1] != null &&
+                            getBoard()[row][j + 1].getNum() == getBoard()[row][j].getNum()
+                            && !getBoard()[row][j + 1].isChanged() && !getBoard()[row][j].isChanged()) {
+                        getBoard()[row][j + 1] = getBoard()[row][j];
                         getBoard()[row][j] = null;
-                        getBoard()[row][j+1].doubleNum();
-                        getBoard()[row][j+1].setChanged(true);
+
+                        int score_increase = getBoard()[row][j + 1].getNum() * 2;
+
+                        getBoard()[row][j + 1].doubleNum();
+                        getBoard()[row][j + 1].setChanged(true);
+                        synchronized (score_lock) {
+                            increaseScore(score_increase);
+                        }
                     }
                 }
             }
@@ -155,6 +264,9 @@ public class Game {
         return result;
     }
 
+    public void increaseScore(int i) {
+        setScore(getScore() + i);
+    }
 
     public Account getAccount() {
         return account;

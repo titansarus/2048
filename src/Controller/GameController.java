@@ -71,16 +71,39 @@ public class GameController {
 
     public static void mover(Game game, char c) {
         if (c == 'w' || c == 'W') {
-            shiftUp(game);
+            if (game.checkIsUpMovePossibleForBoard()) {
+                shiftUp(game);
+            }
+            else
+            {
+                return;
+            }
         }
         if (c == 'd' || c == 'D') {
-            shiftRight(game);
+            if (game.checkIsRightMovePossibleForBoard()) {
+                shiftRight(game);
+            }
+            else
+            {
+                return;
+            }
         }
         if (c == 's' || c == 'S') {
-            shiftDown(game);
+            if (game.checkIsDownMovePossibleForBoard()) {
+                shiftDown(game);
+            }
+            else {
+                return;
+            }
         }
         if (c == 'a' || c == 'A') {
-            shiftLeft(game);
+            if(game.checkIsLeftMovePossibleForBoard()) {
+                shiftLeft(game);
+            }
+            else
+            {
+                return;
+            }
         }
         try {
             Thread.sleep(100);
@@ -91,7 +114,9 @@ public class GameController {
         }
         game.setChangeOfBlocksToFalse();
         game.randomNumberPutter(1);
+        ((GameMenu) menus.peekLast()).showBoard(game.getBoard(),game.getN());
     }
+
 
     public static void shiftDown(Game game) {
         for (int i = 0; i < game.getN(); i++) {
@@ -118,6 +143,16 @@ public class GameController {
         for (int i = 0; i < game.getN(); i++) {
             game.shiftRowLeft(i);
         }
+    }
+
+    public static void backFromGame(Game game)
+    {
+        Account account = game.getAccount();
+        if (account.getHighscore()<game.getScore())
+        {
+            account.setHighscore(game.getScore());
+        }
+        backToLastMenu();
     }
 
     public static void logout() {

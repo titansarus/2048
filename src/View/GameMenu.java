@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class GameMenu extends AbsMenu {
 
-    private static final int HELP = 0, BACK = 1, SHOW_BOARD = 2, MOVE = 3;
+    private static final int HELP = 0, BACK = 1, SHOW_BOARD = 2, MOVE = 3 , SHOW_SCORE=4,EXIT=5;
     public static ArrayList<Pattern> patterns = new ArrayList<>();
     Game game;
 
@@ -23,7 +23,8 @@ public class GameMenu extends AbsMenu {
         patterns.add(Pattern.compile("^(?i)back\\s*$"));
         patterns.add(Pattern.compile("^(?i)Show Board\\s*$"));
         patterns.add(Pattern.compile("^(?i)([WDSA])\\s*$"));
-
+        patterns.add(Pattern.compile("^(?i)Show Score\\s*$"));
+        patterns.add(Pattern.compile("^(?i)exit\\s*$"));
     }
 
 
@@ -61,6 +62,10 @@ public class GameMenu extends AbsMenu {
             System.out.println();
         }
     }
+    public void showScore(int n)
+    {
+        System.out.println("Score: "+n);
+    }
 
     @Override
     public void functionDeterminer(Matcher matcher, int i) {
@@ -69,7 +74,7 @@ public class GameMenu extends AbsMenu {
             this.showHelp();
         }
         if (i == BACK) {
-            GameController.backToLastMenu();
+            GameController.backFromGame(game);
         }
         if (i == SHOW_BOARD) {
 
@@ -78,6 +83,14 @@ public class GameMenu extends AbsMenu {
         if (i == MOVE) {
             char c = matcher.group(1).charAt(0);
             GameController.mover(game, c);
+        }
+        if (i==SHOW_SCORE)
+        {
+            showScore(game.getScore());
+        }
+        if(i==EXIT)
+        {
+            GameController.exit();
         }
 
     }
