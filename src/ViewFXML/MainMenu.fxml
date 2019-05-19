@@ -7,9 +7,9 @@
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewFXML.MainMenuFXMLController">
    <children>
       <Button fx:id="btnPlayGame" layoutX="155.0" layoutY="97.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="PlayGame" />
-      <Button fx:id="btnLeaderBoard" layoutX="155.0" layoutY="143.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="LeaderBoard" />
+      <Button fx:id="btnLeaderBoard" layoutX="155.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleLeaderboard" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="LeaderBoard" />
       <Button fx:id="btnExit" layoutX="296.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Exit" />
-      <Button fx:id="btnBack" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Back" />
+      <Button fx:id="btnBack" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Back" />
       <Label fx:id="lblLoginedUser" layoutX="223.0" layoutY="22.0" prefHeight="17.0" prefWidth="167.0" text="s" />
    </children>
 </AnchorPane>
