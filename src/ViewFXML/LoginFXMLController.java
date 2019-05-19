@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -79,6 +80,8 @@ public void handleBtnMainMenu()
             lblStatus.setText(e.getMessage());
             lblStatus.setStyle("-fx-text-fill: red");
             lblStatus.setVisible(true);
+            alertShower(e,"Login Failed");
+
         }
 
     }
@@ -92,11 +95,20 @@ public void handleBtnMainMenu()
             lblStatus.setStyle("-fx-text-fill: black");
             lblStatus.setVisible(true);
             updateLoginedUser();
-        } catch (UserExistException e) {
+        } catch (MyExceptions e) {
             lblStatus.setText(e.getMessage());
             lblStatus.setStyle("-fx-text-fill: red");
             lblStatus.setVisible(true);
+            alertShower(e , "Sign Up Failed");
         }
 
+    }
+
+    public void alertShower(Exception e , String title)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage());
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.show();
     }
 }

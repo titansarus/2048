@@ -299,4 +299,31 @@ public class Game {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void shiftDown() {
+        for (int i = 0; i < this.getN(); i++) {
+            this.shiftColumnDown(i);
+        }
+
+    }
+
+    public void shiftUp() {
+        for (int i = 0; i < this.getN(); i++) {
+            this.shiftColumnUp(i);
+        }
+
+    }
+
+    public  void shiftRight() {
+        for (int i = 0; i < this.getN(); i++) {
+            this.shiftRowRight(i);
+        }
+
+    }
+
+    public void shiftLeft() {
+        for (int i = 0; i < this.getN(); i++) {
+            this.shiftRowLeft(i);
+        }
+    }
 }

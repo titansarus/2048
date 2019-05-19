@@ -1,5 +1,6 @@
 package Model;
 
+import ProgramExceptions.EmptyFieldException;
 import ProgramExceptions.InvalidPasswordException;
 import ProgramExceptions.NoUserExistException;
 import ProgramExceptions.UserExistException;
@@ -16,6 +17,9 @@ public class Account implements Comparable<Account> {
 
 
     public Account(String username, String password) {
+        if (username.length() <= 0 || password.length() <= 0) {
+            throw new EmptyFieldException();
+        }
         if (accountExist(username)) {
             throw new UserExistException();
         }
@@ -25,6 +29,9 @@ public class Account implements Comparable<Account> {
     }
 
     public static void login(String username, String password) {
+        if (username.length() <= 0 || password.length() <= 0) {
+            throw new EmptyFieldException();
+        }
         if (!accountExist(username)) {
             throw new NoUserExistException();
         } else if (!findUser(username).getPassword().equals(password)) {
