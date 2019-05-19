@@ -1,10 +1,12 @@
 package ViewFXML;
 
+import Model.Account;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -13,6 +15,9 @@ import java.io.IOException;
 public class MainMenuFXMLController {
     @FXML
     public Button btnPlayGame;
+
+    @FXML
+    public Label lblLoginedUser;
 
     public  void handleLeaderboard() {
         Parent root = null;
@@ -28,9 +33,18 @@ public class MainMenuFXMLController {
         Scene scene = new Scene(root);
         Container.scenes.addLast(scene);
         Container.stage.setScene(Container.scenes.getLast());
+
         ((LeaderboardFXMLController) fxmlLoader.getController()).makeGrid();
+        ((LeaderboardFXMLController) fxmlLoader.getController()).updateLoginedUser();
         Container.stage.show();
 
+    }
+    public void updateLoginedUser() {
+        if (Account.getLoginedAccount() == null) {
+            lblLoginedUser.setText("No User Logined");
+        } else {
+            lblLoginedUser.setText(Account.getLoginedAccount().getUsername());
+        }
     }
 
     public  void handlePlayGame() {
@@ -41,6 +55,7 @@ public class MainMenuFXMLController {
         if (Container.scenes.size()>0) {
             Container.scenes.removeLast();
             Container.stage.setScene(Container.scenes.getLast());
+
             Container.stage.show();
         }
 

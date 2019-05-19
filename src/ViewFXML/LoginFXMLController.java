@@ -48,6 +48,7 @@ public void handleBtnMainMenu()
     Scene scene = new Scene(root);
     Container.scenes.addLast(scene);
     Container.stage.setScene(Container.scenes.getLast());
+    ((MainMenuFXMLController)fxmlLoader.getController()).updateLoginedUser();
     Container.stage.show();
 }
 

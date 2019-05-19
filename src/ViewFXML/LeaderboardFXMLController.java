@@ -13,8 +13,19 @@ public class LeaderboardFXMLController {
     public Button btnExit;
     @FXML
     public GridPane gridLeaderBoard;
+    @FXML
+    public Label lblLoginedUser;
+
+    public void updateLoginedUser() {
+        if (Account.getLoginedAccount() == null) {
+            lblLoginedUser.setText("No User Logined");
+        } else {
+            lblLoginedUser.setText(Account.getLoginedAccount().getUsername());
+        }
+    }
 
     public void makeGrid() {
+
 
         //THIS COMMENTS ARE FOR TEST PURPOSE OF THE GRID!
 //        Account account = new Account("User1" , "123");
@@ -53,6 +64,7 @@ public class LeaderboardFXMLController {
 
 
     }
+
 
     public void handleExit() {
         System.exit(0);
