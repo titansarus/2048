@@ -9,7 +9,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 
-public class GameController {
+public class GameController  {
     public static Deque<AbsMenu> menus = new LinkedList<>();
 
     {

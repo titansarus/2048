@@ -1,5 +1,9 @@
 package Model;
 
+import ProgramExceptions.InvalidPasswordException;
+import ProgramExceptions.NoUserExistException;
+import ProgramExceptions.UserExistException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,9 +16,23 @@ public class Account implements Comparable<Account> {
 
 
     public Account(String username, String password) {
+        if (accountExist(username)) {
+            throw new UserExistException();
+        }
         this.username = username;
         this.password = password;
         addAccount(this);
+    }
+
+    public static void login(String username, String password) {
+        if (!accountExist(username)) {
+            throw new NoUserExistException();
+        } else if (!findUser(username).getPassword().equals(password)) {
+            throw new InvalidPasswordException();
+        } else {
+            setLoginedAccount(findUser(username));
+        }
+
     }
 
     public static boolean accountExist(String username) {
@@ -87,6 +105,6 @@ public class Account implements Comparable<Account> {
 
     @Override
     public int compareTo(Account o) {
-        return o.getHighscore()-this.getHighscore();
+        return o.getHighscore() - this.getHighscore();
     }
 }
