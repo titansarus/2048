@@ -118,21 +118,41 @@ public class MainMenuFXMLController {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) ->
         {
             if (key.getCode() == KeyCode.LEFT) {
-                game.shiftLeft();
-                game.randomNumberPutter(1);
+                if (game.checkIsLeftMovePossibleForBoard()) {
+
+                    game.shiftLeft();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
             }
             if (key.getCode() == KeyCode.RIGHT) {
-                game.shiftRight();
-                game.randomNumberPutter(1);
+                if (game.checkIsRightMovePossibleForBoard()) {
+
+                    game.shiftRight();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
             }
             if (key.getCode() == KeyCode.UP) {
-                game.shiftUp();
-                game.randomNumberPutter(1);
+                if (game.checkIsUpMovePossibleForBoard()) {
+                    game.shiftUp();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
             }
             if (key.getCode() == KeyCode.DOWN) {
-                game.shiftDown();
-                game.randomNumberPutter(1);
+                if (game.checkIsDownMovePossibleForBoard()) {
+                    game.shiftDown();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
             }
+            game.setChangeOfBlocksToFalse();
+            game.randomNumberPutter(1);
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -141,6 +161,8 @@ public class MainMenuFXMLController {
             controller.blockPainter();
 
         });
+
+        //TODO CHECK ENDING CONDITION
 
         Container.stage.show();
 
