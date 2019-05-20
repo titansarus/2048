@@ -2,8 +2,7 @@ package ViewFXML;
 
 import Model.Account;
 import Model.Game;
-import ProgramExceptions.InvalidBoardSizeException;
-import ProgramExceptions.InvalidPasswordException;
+import ProgramExceptions.*;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -173,6 +172,47 @@ public class MainMenuFXMLController {
         //TODO CHECK ENDING CONDITION
 
         Container.stage.show();
+
+    }
+
+    public String gettingNewUserName() {
+        String newUsername="";
+        TextInputDialog textInputDialog = new TextInputDialog();
+        textInputDialog.setTitle("New User Name");
+        textInputDialog.setHeaderText("Please Enter a new UserName");
+        textInputDialog.setContentText("UserName");
+        Optional<String> result = textInputDialog.showAndWait();
+        if (result.isPresent()) {
+                newUsername = result.get();
+                if (Account.accountExist(newUsername ))
+                {
+                    throw new UserExistException();
+                }
+                if (newUsername.length()<=0)
+                {
+                    throw new EmptyFieldException();
+                }
+
+        }
+
+        return newUsername;
+    }
+
+    public void handlChangeUserName()
+    {
+        String newUserName = "";
+        try {
+
+            newUserName = gettingNewUserName();
+        }
+        catch (MyExceptions e)
+        {
+            Container.alertShower(e,"Invalid UserName");
+            return;
+        }
+
+        Account.getLoginedAccount().setUsername(newUserName );
+        updateLoginedUser();
 
     }
 

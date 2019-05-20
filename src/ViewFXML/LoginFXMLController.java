@@ -2,6 +2,7 @@ package ViewFXML;
 
 import Model.Account;
 import ProgramExceptions.MyExceptions;
+import ProgramExceptions.NoLoginedAccountException;
 import ProgramExceptions.UserExistException;
 import View.ConstantMessages;
 import javafx.fxml.FXML;
@@ -36,21 +37,26 @@ public class LoginFXMLController {
 
 public void handleBtnMainMenu()
 {
-    Pane root = null;
-    FXMLLoader fxmlLoader = null;
-    try {
-        fxmlLoader = new  FXMLLoader(getClass().getResource("./MainMenu.fxml"));
-        root = fxmlLoader.load();
-        int i =0;
-        System.out.println(i);
-    } catch (IOException e) {
-        e.printStackTrace();
+    if (Account.getLoginedAccount()!=null) {
+        Pane root = null;
+        FXMLLoader fxmlLoader = null;
+        try {
+            fxmlLoader = new FXMLLoader(getClass().getResource("./MainMenu.fxml"));
+            root = fxmlLoader.load();
+            int i = 0;
+            System.out.println(i);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Container.scenes.addLast(scene);
+        Container.stage.setScene(Container.scenes.getLast());
+        ((MainMenuFXMLController) fxmlLoader.getController()).updateLoginedUser();
+        Container.stage.show();
     }
-    Scene scene = new Scene(root);
-    Container.scenes.addLast(scene);
-    Container.stage.setScene(Container.scenes.getLast());
-    ((MainMenuFXMLController)fxmlLoader.getController()).updateLoginedUser();
-    Container.stage.show();
+    else{
+        Container.alertShower(new NoLoginedAccountException() , "No Logined Account");
+    }
 }
 
     public void updateLoginedUser() {
