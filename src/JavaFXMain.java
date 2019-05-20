@@ -6,12 +6,11 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import Model.Account;
-
+import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.security.Key;
 import java.util.Deque;
@@ -22,7 +21,7 @@ public class JavaFXMain extends Application {
 
 
     {
-        Parent root = null;
+        Pane root = null;
         FXMLLoader fxmlLoader = null;
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("./ViewFXML/Login.fxml"));

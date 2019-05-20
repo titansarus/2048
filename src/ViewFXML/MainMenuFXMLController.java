@@ -1,15 +1,19 @@
 package ViewFXML;
 
 import Model.Account;
+import Model.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
+import javafx.scene.layout.Pane;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 
 public class MainMenuFXMLController {
@@ -20,7 +24,7 @@ public class MainMenuFXMLController {
     public Label lblLoginedUser;
 
     public  void handleLeaderboard() {
-        Parent root = null;
+        Pane root = null;
         FXMLLoader fxmlLoader = null;
         try {
             fxmlLoader = new  FXMLLoader(getClass().getResource("./Leaderboard.fxml"));
@@ -48,6 +52,28 @@ public class MainMenuFXMLController {
     }
 
     public  void handlePlayGame() {
+        Game game =new Game(Account.getLoginedAccount(),4);
+        Pane root = null;
+        FXMLLoader fxmlLoader = null;
+        try {
+            fxmlLoader = new  FXMLLoader(getClass().getResource("./GameBoard.fxml"));
+            root = fxmlLoader.load();
+            int i =0;
+            System.out.println(i);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Container.scenes.addLast(scene);
+        Container.stage.setScene(Container.scenes.getLast());
+        game.randomNumberPutter(2);//TODO MAKE THIS COMPLETE MUST WORK FOR ALL N
+        GameBoardFXMLController controller = (GameBoardFXMLController) fxmlLoader.getController();
+        controller.setGame(game);
+        controller.blockMaker();
+        root.getChildren().addAll(controller.blocks);
+        controller.blockPainter();
+
+        Container.stage.show();
 
     }
 
