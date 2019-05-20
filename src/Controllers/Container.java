@@ -1,4 +1,4 @@
-package ViewFXML;
+package Controllers;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;

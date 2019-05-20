@@ -1,6 +1,6 @@
 package ProgramExceptions;
 
-import View.ConstantMessages;
+import ViewFXML.ConstantMessages;
 
 public class InvalidPasswordException extends MyExceptions {
     public InvalidPasswordException() {

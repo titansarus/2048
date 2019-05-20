@@ -1,22 +1,11 @@
-import ViewFXML.Container;
-import ViewFXML.LoginFXMLController;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import Controllers.Container;
+import Controllers.LoginFXMLController;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import Model.Account;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
-import java.security.Key;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.regex.Pattern;
 
 public class JavaFXMain extends Application {
 

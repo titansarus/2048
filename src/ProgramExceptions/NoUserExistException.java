@@ -1,6 +1,6 @@
 package ProgramExceptions;
 
-import View.ConstantMessages;
+import ViewFXML.ConstantMessages;
 
 public class NoUserExistException extends  MyExceptions {
     public NoUserExistException()

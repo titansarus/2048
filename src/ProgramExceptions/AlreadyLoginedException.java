@@ -1,6 +1,6 @@
 package ProgramExceptions;
 
-import View.ConstantMessages;
+import ViewFXML.ConstantMessages;
 
 public class AlreadyLoginedException extends  MyExceptions{
     public AlreadyLoginedException() {

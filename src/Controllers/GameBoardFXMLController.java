@@ -1,17 +1,17 @@
-package ViewFXML;
+package Controllers;
 
 import Model.Account;
 import Model.Block;
 import Model.Game;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class GameBoardFXMLController {
@@ -38,6 +38,9 @@ public class GameBoardFXMLController {
 
     public ArrayList<Rectangle> blocks = new ArrayList<>();
     public ArrayList<Label> blockTexts = new ArrayList<>();
+    public Button btnExit;
+    public Button btnBack;
+
     public void updateLoginedUser() {
         if (Account.getLoginedAccount() == null) {
             lblLoginedUser.setText("No User Logined");
@@ -137,6 +140,7 @@ public class GameBoardFXMLController {
 
 
     }
+
 
 
     public void handleExit() {

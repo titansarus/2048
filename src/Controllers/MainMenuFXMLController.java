@@ -1,14 +1,10 @@
-package ViewFXML;
+package Controllers;
 
 import Model.Account;
 import Model.Game;
 import ProgramExceptions.*;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -16,12 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 
 public class MainMenuFXMLController {

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewFXML.GameBoardFXMLController">
+<AnchorPane prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GameBoardFXMLController">
    <children>
       <Button fx:id="btnExit" layoutX="896.0" layoutY="853.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Exit" />
       <Button fx:id="btnBack" layoutX="14.0" layoutY="853.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Back" />
