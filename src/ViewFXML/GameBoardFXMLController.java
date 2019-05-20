@@ -33,6 +33,9 @@ public class GameBoardFXMLController {
     @FXML
     public Label lblLoginedUser;
 
+    @FXML
+    public Label lblHighScore;
+
     public ArrayList<Rectangle> blocks = new ArrayList<>();
     public ArrayList<Label> blockTexts = new ArrayList<>();
     public void updateLoginedUser() {
@@ -113,7 +116,19 @@ public class GameBoardFXMLController {
     }
 
 
+    public void updateScoreLabel()
+    {
+        lblHighScore.setText("Score: "+game.getScore());
+    }
+
+
     public void handleBack() {
+        Account account = game.getAccount();
+        if (account.getHighscore()<game.getScore())
+        {
+            account.setHighscore(game.getScore());
+        }
+
         if (Container.scenes.size() > 0) {
             Container.scenes.removeLast();
             Container.stage.setScene(Container.scenes.getLast());

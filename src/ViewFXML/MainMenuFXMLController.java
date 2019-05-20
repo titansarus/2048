@@ -33,6 +33,8 @@ public class MainMenuFXMLController {
     @FXML
     public Label lblLoginedUser;
 
+
+
     public void handleLeaderboard() {
         Pane root = null;
         FXMLLoader fxmlLoader = null;
@@ -115,6 +117,7 @@ public class MainMenuFXMLController {
         root.getChildren().addAll(controller.blocks);
         root.getChildren().addAll(controller.blockTexts);
         controller.blockPainter();
+        controller.updateLoginedUser();
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) ->
         {
             if (key.getCode() == KeyCode.LEFT) {
@@ -151,14 +154,19 @@ public class MainMenuFXMLController {
                     return;
                 }
             }
-            game.setChangeOfBlocksToFalse();
-            game.randomNumberPutter(1);
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            game.setChangeOfBlocksToFalse();
+            game.randomNumberPutter(1);
             controller.blockPainter();
+            controller.updateScoreLabel();
+            if(!game.checkIsAnyMovePossible())
+            {
+                controller.handleBack();
+            }
 
         });
 

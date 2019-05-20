@@ -108,6 +108,7 @@ public class Game {
 
     public void randomNumberPutter(int numberOfRandoms) {
         ArrayList<Integer> emptyCells = gettingEmptyCells();
+        int k=0;
         for (int i = 0; i < (numberOfRandoms < emptyCells.size() ? numberOfRandoms : emptyCells.size()); i++) {
             Random random = new Random();
             int pointIndex = random.nextInt(gettingEmptyCells().size());
@@ -137,6 +138,7 @@ public class Game {
     }
 
     public void shiftColumnDown(int column) {
+        Thread t1 = new Thread(()-> {
             for (int i = 0; i < getN(); i++) {
                 for (int j = getN() - 1 - 1; j >= 0; j--) {
                     if (getBoard()[j][column] != null && getBoard()[j + 1][column] == null) {
@@ -158,9 +160,12 @@ public class Game {
                     }
                 }
             }
+        });
+        t1.start();
     }
 
     public void shiftColumnUp(int column) {
+        Thread t1 = new Thread(()-> {
             for (int i = 0; i < getN(); i++) {
                 for (int j = 1; j <= getN() - 1; j++) {
                     if (getBoard()[j][column] != null && getBoard()[j - 1][column] == null) {
@@ -182,10 +187,13 @@ public class Game {
                     }
                 }
             }
+        });
+        t1.start();
 
     }
 
     public void shiftRowLeft(int row) {
+        Thread t1 = new Thread(()-> {
             for (int i = 0; i < getN(); i++) {
                 for (int j = 1; j <= getN() - 1; j++) {
                     if (getBoard()[row][j] != null && getBoard()[row][j - 1] == null) {
@@ -207,11 +215,15 @@ public class Game {
                     }
                 }
             }
+        });
+        t1.run();
 
     }
 
     public void shiftRowRight(int row) {
-        {
+
+            Thread t1 = new Thread(() ->
+            {
             for (int i = 0; i < getN(); i++) {
                 for (int j = getN() - 1 - 1; j >= 0; j--) {
                     if (getBoard()[row][j] != null && getBoard()[row][j + 1] == null) {
@@ -233,7 +245,10 @@ public class Game {
                     }
                 }
             }
-        }
+        });
+            t1.start();
+
+
     }
 
     public boolean isAnyEmptyCells() {
