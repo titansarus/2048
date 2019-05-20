@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import Model.Account;
@@ -49,4 +50,6 @@ public class JavaFXMain extends Application {
         primaryStage.show();
 
     }
+
+
 }

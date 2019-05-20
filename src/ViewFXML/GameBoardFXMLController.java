@@ -9,14 +9,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class GameBoardFXMLController {
-    public static final int beginX = 400;
-    public static final int beginY = 400;
-    public static final int endX = 800;
-    public static final int endY = 800;
+    public static final int beginX = 200;
+    public static final int beginY = 200;
+    public static final int endX = 650;
+    public static final int endY = 650;
 
     public static final int emptyCellR = 205, emptyCellG = 193, emptyCellB = 180;
 
@@ -32,7 +34,7 @@ public class GameBoardFXMLController {
     public Label lblLoginedUser;
 
     public ArrayList<Rectangle> blocks = new ArrayList<>();
-
+    public ArrayList<Label> blockTexts = new ArrayList<>();
     public void updateLoginedUser() {
         if (Account.getLoginedAccount() == null) {
             lblLoginedUser.setText("No User Logined");
@@ -42,7 +44,7 @@ public class GameBoardFXMLController {
     }
 
     public void blockMaker() {
-        int availabeSpace = (endX - beginX - (game.getN() - 1) * padding) / (game.getN() - 1);
+        int availabeSpace = (endX - beginX - (game.getN() - 1) * padding);
         rectangleDim = availabeSpace / game.getN();
         stepOfMove = rectangleDim + padding;
 
@@ -50,6 +52,12 @@ public class GameBoardFXMLController {
             for (int j = 0; j < game.getN(); j++) {
                 Rectangle rectangle = new Rectangle(rectangleDim, rectangleDim);
                 rectangle.relocate(beginX + j * stepOfMove, beginY + i * stepOfMove);
+                Label label = new Label();
+                label.setFont(Font.font(15));
+
+                label.relocate(rectangle.getLayoutX()+rectangleDim/2.5 , rectangle.getLayoutY()+rectangleDim/2.5);
+                label.setText("");
+                blockTexts.add(label);
                 blocks.add(rectangle);
             }
         }
@@ -63,13 +71,17 @@ public class GameBoardFXMLController {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == null) {
                     blocks.get(i * n + j).setFill(Color.valueOf("#CDC1B4"));
+                    blockTexts.get(i*n+j).setText("");
                 } else {
                     String color = giveHexStringOfColor(board[i][j]);
                     blocks.get(i * n + j).setFill(Color.valueOf(color));
+                    blockTexts.get(i*n+j).setText(String.valueOf( board[i][j].getNum()));
                 }
             }
         }
     }
+
+
 
     //Null: #CDC1B4
     //2: #EEE4DA

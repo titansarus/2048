@@ -80,7 +80,7 @@ public void handleBtnMainMenu()
             lblStatus.setText(e.getMessage());
             lblStatus.setStyle("-fx-text-fill: red");
             lblStatus.setVisible(true);
-            alertShower(e,"Login Failed");
+            Container.alertShower(e,"Login Failed");
 
         }
 
@@ -99,16 +99,11 @@ public void handleBtnMainMenu()
             lblStatus.setText(e.getMessage());
             lblStatus.setStyle("-fx-text-fill: red");
             lblStatus.setVisible(true);
-            alertShower(e , "Sign Up Failed");
+            Container.alertShower (e , "Sign Up Failed");
         }
 
     }
 
-    public void alertShower(Exception e , String title)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage());
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.show();
-    }
+
+
 }
