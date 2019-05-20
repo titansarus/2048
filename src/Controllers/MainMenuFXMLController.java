@@ -31,7 +31,7 @@ public class MainMenuFXMLController {
         Pane root = null;
         FXMLLoader fxmlLoader = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("./Leaderboard.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ViewFXML/Leaderboard.fxml"));
             root = fxmlLoader.load();
             int i = 0;
             System.out.println(i);
@@ -92,7 +92,7 @@ public class MainMenuFXMLController {
         Pane root = null;
         FXMLLoader fxmlLoader = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("./GameBoard.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ViewFXML/GameBoard.fxml"));
             root = fxmlLoader.load();
             int i = 0;
             System.out.println(i);
@@ -176,15 +176,15 @@ public class MainMenuFXMLController {
         textInputDialog.setContentText("UserName");
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()) {
-                newUsername = result.get();
-                if (Account.accountExist(newUsername ))
-                {
-                    throw new UserExistException();
-                }
-                if (newUsername.length()<=0)
-                {
-                    throw new EmptyFieldException();
-                }
+            newUsername = result.get();
+            if (Account.accountExist(newUsername ))
+            {
+                throw new UserExistException();
+            }
+            if (newUsername.length()<=0)
+            {
+                throw new EmptyFieldException();
+            }
 
         }
 

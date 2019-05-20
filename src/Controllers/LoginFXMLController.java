@@ -37,7 +37,7 @@ public void handleBtnMainMenu()
         Pane root = null;
         FXMLLoader fxmlLoader = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("./MainMenu.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/ViewFXML/MainMenu.fxml"));
             root = fxmlLoader.load();
             int i = 0;
             System.out.println(i);
