@@ -4,13 +4,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(from 0px 10px to 100px 100px,#d2ff52 , #91e842);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainMenuFXMLController">
-   <children>
-      <Button fx:id="btnPlayGame" layoutX="155.0" layoutY="97.0" mnemonicParsing="false" onAction="#handlePlayGame" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="PlayGame" />
-      <Button fx:id="btnLeaderBoard" layoutX="155.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleLeaderboard" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="LeaderBoard" />
-      <Button fx:id="btnExit" layoutX="296.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Exit" />
-      <Button fx:id="btnBack" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #ffcc99;" text="Back to Account Menu" />
-      <Label fx:id="lblLoginedUser" layoutX="223.0" layoutY="22.0" prefHeight="17.0" prefWidth="167.0" text="s" />
-      <Button fx:id="btnChangeUserName" layoutX="140.0" layoutY="250.0" mnemonicParsing="false" onAction="#handlChangeUserName" prefHeight="33.0" prefWidth="121.0" style="-fx-background-color: #ffcc99;" text="Change UserName" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="400.0"
+            style="-fx-background-color: linear-gradient(from 0px 10px to 100px 100px,#d2ff52 , #91e842);"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.MainMenuFXMLController">
+    <children>
+        <Button fx:id="btnPlayGame" layoutX="155.0" layoutY="97.0" mnemonicParsing="false" onAction="#handlePlayGame"
+                prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="PlayGame"/>
+        <Button fx:id="btnLeaderBoard" layoutX="155.0" layoutY="184.0" mnemonicParsing="false"
+                onAction="#handleLeaderboard" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;"
+                text="LeaderBoard"/>
+        <Button fx:id="btnExit" layoutX="296.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleExit"
+                prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Exit"/>
+        <Button fx:id="btnBack" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBack"
+                prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #ffcc99;" text="Back to Account Menu"/>
+        <Label fx:id="lblLoginedUser" layoutX="223.0" layoutY="22.0" prefHeight="17.0" prefWidth="167.0" text="s"/>
+        <Button fx:id="btnChangeUserName" layoutX="140.0" layoutY="250.0" mnemonicParsing="false"
+                onAction="#handlChangeUserName" prefHeight="33.0" prefWidth="121.0"
+                style="-fx-background-color: #ffcc99;" text="Change UserName"/>
+    </children>
 </AnchorPane>

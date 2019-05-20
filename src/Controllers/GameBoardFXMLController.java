@@ -3,11 +3,13 @@ package Controllers;
 import Model.Account;
 import Model.Block;
 import Model.Game;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -15,20 +17,14 @@ import javafx.scene.text.Font;
 import java.util.ArrayList;
 
 public class GameBoardFXMLController {
-    public static final int beginX = 200;
-    public static final int beginY = 200;
-    public static final int endX = 650;
-    public static final int endY = 650;
+    private static final int beginX = 200;
+    private static final int beginY = 200;
+    private static final int endX = 650;
 
-    public static final int emptyCellR = 205, emptyCellG = 193, emptyCellB = 180;
 
-    public static final int padding = 10;
+    private static final int padding = 10;
 
-    public int rectangleDim = 0;
-
-    public int stepOfMove = 0;
-
-    public Game game;
+    private Game game;
 
     @FXML
     public Label lblLoginedUser;
@@ -36,12 +32,12 @@ public class GameBoardFXMLController {
     @FXML
     public Label lblHighScore;
 
-    public ArrayList<Rectangle> blocks = new ArrayList<>();
-    public ArrayList<Label> blockTexts = new ArrayList<>();
+    ArrayList<Rectangle> blocks = new ArrayList<>();
+    ArrayList<Label> blockTexts = new ArrayList<>();
     public Button btnExit;
     public Button btnBack;
 
-    public void updateLoginedUser() {
+    void updateLoginedUser() {
         if (Account.getLoginedAccount() == null) {
             lblLoginedUser.setText("No User Logined");
         } else {
@@ -49,10 +45,10 @@ public class GameBoardFXMLController {
         }
     }
 
-    public void blockMaker() {
+    void blockMaker() {
         int availabeSpace = (endX - beginX - (game.getN() - 1) * padding);
-        rectangleDim = availabeSpace / game.getN();
-        stepOfMove = rectangleDim + padding;
+        int rectangleDim = availabeSpace / game.getN();
+        int stepOfMove = rectangleDim + padding;
 
         for (int i = 0; i < game.getN(); i++) {
             for (int j = 0; j < game.getN(); j++) {
@@ -61,7 +57,7 @@ public class GameBoardFXMLController {
                 Label label = new Label();
                 label.setFont(Font.font(15));
 
-                label.relocate(rectangle.getLayoutX()+rectangleDim/2.5 , rectangle.getLayoutY()+rectangleDim/2.5);
+                label.relocate(rectangle.getLayoutX() + rectangleDim / 2.5, rectangle.getLayoutY() + rectangleDim / 2.5);
                 label.setText("");
                 blockTexts.add(label);
                 blocks.add(rectangle);
@@ -70,23 +66,22 @@ public class GameBoardFXMLController {
 
     }
 
-    public void blockPainter() {
+    void blockPainter() {
         Block[][] board = game.getBoard();
         int n = getGame().getN();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == null) {
                     blocks.get(i * n + j).setFill(Color.valueOf("#CDC1B4"));
-                    blockTexts.get(i*n+j).setText("");
+                    blockTexts.get(i * n + j).setText("");
                 } else {
                     String color = giveHexStringOfColor(board[i][j]);
                     blocks.get(i * n + j).setFill(Color.valueOf(color));
-                    blockTexts.get(i*n+j).setText(String.valueOf( board[i][j].getNum()));
+                    blockTexts.get(i * n + j).setText(String.valueOf(board[i][j].getNum()));
                 }
             }
         }
     }
-
 
 
     //Null: #CDC1B4
@@ -97,7 +92,7 @@ public class GameBoardFXMLController {
     //32: #F67C5F
     //64: ##F65E3B
     //128 and others: #F9F6F2
-    public String giveHexStringOfColor(Block block) {
+    private String giveHexStringOfColor(Block block) {
         String ret = "0XFFFFFF";
         if (block.getNum() == 2) {
             ret = "#EEE4DA";
@@ -119,17 +114,26 @@ public class GameBoardFXMLController {
     }
 
 
-    public void updateScoreLabel()
-    {
-        lblHighScore.setText("Score: "+game.getScore());
+    private void updateScoreLabel() {
+        lblHighScore.setText("Score: " + game.getScore());
     }
 
 
     public void handleBack() {
         Account account = game.getAccount();
-        if (account.getHighscore()<game.getScore())
-        {
+        if (account.getHighscore() < game.getScore()) {
             account.setHighscore(game.getScore());
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("End Game");
+        alert.setHeaderText("Game Ended");
+        alert.setContentText("Your Score is: " + game.getScore());
+        alert.show();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         if (Container.scenes.size() > 0) {
@@ -142,16 +146,70 @@ public class GameBoardFXMLController {
     }
 
 
+    EventHandler<KeyEvent> moveEventHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent key) {
+            if (key.getCode() == KeyCode.LEFT) {
+                if (game.checkIsLeftMovePossibleForBoard()) {
+
+                    game.shiftLeft();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
+            }
+            if (key.getCode() == KeyCode.RIGHT) {
+                if (game.checkIsRightMovePossibleForBoard()) {
+
+                    game.shiftRight();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
+            }
+            if (key.getCode() == KeyCode.UP) {
+                if (game.checkIsUpMovePossibleForBoard()) {
+                    game.shiftUp();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
+            }
+            if (key.getCode() == KeyCode.DOWN) {
+                if (game.checkIsDownMovePossibleForBoard()) {
+                    game.shiftDown();
+                    //game.randomNumberPutter(1);
+                } else {
+                    return;
+                }
+            }
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            game.setChangeOfBlocksToFalse();
+            game.randomNumberPutter(1);
+            blockPainter();
+            updateScoreLabel();
+            if (!game.checkIsAnyMovePossible()) {
+                handleBack();
+            }
+
+
+        }
+    };
+
 
     public void handleExit() {
         System.exit(0);
     }
 
-    public Game getGame() {
+    private Game getGame() {
         return game;
     }
 
-    public void setGame(Game game) {
+    void setGame(Game game) {
         this.game = game;
     }
 }

@@ -44,10 +44,7 @@ public class Account implements Comparable<Account> {
 
     public static boolean accountExist(String username) {
         Account account = findUser(username);
-        if (account != null) {
-            return true;
-        }
-        return false;
+        return account != null;
     }
 
     public static void sortAccounts() {
@@ -55,7 +52,7 @@ public class Account implements Comparable<Account> {
     }
 
 
-    public static Account findUser(String username) {
+    private static Account findUser(String username) {
         for (int i = 0; i < getAllOfAccounts().size(); i++) {
             if (getAllOfAccounts().get(i) != null && getAllOfAccounts().get(i).getUsername().equals(username)) {
                 return getAllOfAccounts().get(i);
@@ -64,7 +61,7 @@ public class Account implements Comparable<Account> {
         return null;
     }
 
-    public static void addAccount(Account account) {
+    private static void addAccount(Account account) {
         getAllOfAccounts().add(account);
     }
 
@@ -84,7 +81,7 @@ public class Account implements Comparable<Account> {
         this.username = username;
     }
 
-    public String getPassword() {
+    private String getPassword() {
         return password;
     }
 
@@ -106,8 +103,7 @@ public class Account implements Comparable<Account> {
 
     @Override
     public String toString() {
-        String s = "Account username:" + this.getUsername() + "\t\t\tHighscore:" + getHighscore();
-        return s;
+        return "Account username:" + this.getUsername() + "\t\t\tHighscore:" + getHighscore();
     }
 
     @Override

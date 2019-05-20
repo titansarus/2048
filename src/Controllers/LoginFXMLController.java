@@ -31,29 +31,27 @@ public class LoginFXMLController {
     public Label lblLoginedUser;
 
 
-public void handleBtnMainMenu()
-{
-    if (Account.getLoginedAccount()!=null) {
-        Pane root = null;
-        FXMLLoader fxmlLoader = null;
-        try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("/ViewFXML/MainMenu.fxml"));
-            root = fxmlLoader.load();
-            int i = 0;
-            System.out.println(i);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void handleBtnMainMenu() {
+        if (Account.getLoginedAccount() != null) {
+            Pane root = null;
+            FXMLLoader fxmlLoader = null;
+            try {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/ViewFXML/MainMenu.fxml"));
+                root = fxmlLoader.load();
+                int i = 0;
+                System.out.println(i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root);
+            Container.scenes.addLast(scene);
+            Container.stage.setScene(Container.scenes.getLast());
+            ((MainMenuFXMLController) fxmlLoader.getController()).updateLoginedUser();
+            Container.stage.show();
+        } else {
+            Container.alertShower(new NoLoginedAccountException(), "No Logined Account");
         }
-        Scene scene = new Scene(root);
-        Container.scenes.addLast(scene);
-        Container.stage.setScene(Container.scenes.getLast());
-        ((MainMenuFXMLController) fxmlLoader.getController()).updateLoginedUser();
-        Container.stage.show();
     }
-    else{
-        Container.alertShower(new NoLoginedAccountException() , "No Logined Account");
-    }
-}
 
     public void updateLoginedUser() {
         if (Account.getLoginedAccount() == null) {
@@ -82,7 +80,7 @@ public void handleBtnMainMenu()
             lblStatus.setText(e.getMessage());
             lblStatus.setStyle("-fx-text-fill: red");
             lblStatus.setVisible(true);
-            Container.alertShower(e,"Login Failed");
+            Container.alertShower(e, "Login Failed");
 
         }
 
@@ -101,11 +99,10 @@ public void handleBtnMainMenu()
             lblStatus.setText(e.getMessage());
             lblStatus.setStyle("-fx-text-fill: red");
             lblStatus.setVisible(true);
-            Container.alertShower (e , "Sign Up Failed");
+            Container.alertShower(e, "Sign Up Failed");
         }
 
     }
-
 
 
 }

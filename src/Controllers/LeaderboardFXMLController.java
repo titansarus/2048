@@ -15,7 +15,7 @@ public class LeaderboardFXMLController {
     @FXML
     public Label lblLoginedUser;
 
-    public void updateLoginedUser() {
+    void updateLoginedUser() {
         if (Account.getLoginedAccount() == null) {
             lblLoginedUser.setText("No User Logined");
         } else {
@@ -23,21 +23,10 @@ public class LeaderboardFXMLController {
         }
     }
 
-    public void makeGrid() {
+    void makeGrid() {
 
 
-        //THIS COMMENTS ARE FOR TEST PURPOSE OF THE GRID!
-//        Account account = new Account("User1" , "123");
-//        Account account1 = new Account("User2" , "1234");
-//        Account account2 = new Account("User3" , "1");
-//        Account account3 = new Account("User4" , "2");
-//        Account account4= new Account("User5" , "2");
-//        account.setHighscore(100);
-//        account1.setHighscore(200);
-//        account2.setHighscore(200);
-//        account3.setHighscore(200);
-//        account4.setHighscore(200);
-//        Account.sortAccounts();
+        Account.sortAccounts();
         int n = Account.getAllOfAccounts().size();
         gridLeaderBoard.add(new Label("Rank"), 0, 0);
         gridLeaderBoard.add(new Label("Username"), 1, 0);

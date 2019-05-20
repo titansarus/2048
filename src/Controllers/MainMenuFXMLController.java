@@ -6,7 +6,6 @@ import ProgramExceptions.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.Scene;
@@ -18,13 +17,12 @@ import java.util.Optional;
 
 
 public class MainMenuFXMLController {
-    public static final int CLOSE_NUMBER = -1;
+    private static final int CLOSE_NUMBER = -1;
     @FXML
     public Button btnPlayGame;
 
     @FXML
     public Label lblLoginedUser;
-
 
 
     public void handleLeaderboard() {
@@ -48,7 +46,7 @@ public class MainMenuFXMLController {
 
     }
 
-    public void updateLoginedUser() {
+    void updateLoginedUser() {
         if (Account.getLoginedAccount() == null) {
             lblLoginedUser.setText("No User Logined");
         } else {
@@ -56,7 +54,7 @@ public class MainMenuFXMLController {
         }
     }
 
-    public int gettingSizeOfBoardFromUser() {
+    private int gettingSizeOfBoardFromUser() {
         int n = CLOSE_NUMBER;
         TextInputDialog textInputDialog = new TextInputDialog();
         textInputDialog.setTitle("Size of Board");
@@ -110,66 +108,13 @@ public class MainMenuFXMLController {
         root.getChildren().addAll(controller.blockTexts);
         controller.blockPainter();
         controller.updateLoginedUser();
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) ->
-        {
-            if (key.getCode() == KeyCode.LEFT) {
-                if (game.checkIsLeftMovePossibleForBoard()) {
-
-                    game.shiftLeft();
-                    //game.randomNumberPutter(1);
-                } else {
-                    return;
-                }
-            }
-            if (key.getCode() == KeyCode.RIGHT) {
-                if (game.checkIsRightMovePossibleForBoard()) {
-
-                    game.shiftRight();
-                    //game.randomNumberPutter(1);
-                } else {
-                    return;
-                }
-            }
-            if (key.getCode() == KeyCode.UP) {
-                if (game.checkIsUpMovePossibleForBoard()) {
-                    game.shiftUp();
-                    //game.randomNumberPutter(1);
-                } else {
-                    return;
-                }
-            }
-            if (key.getCode() == KeyCode.DOWN) {
-                if (game.checkIsDownMovePossibleForBoard()) {
-                    game.shiftDown();
-                    //game.randomNumberPutter(1);
-                } else {
-                    return;
-                }
-            }
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            game.setChangeOfBlocksToFalse();
-            game.randomNumberPutter(1);
-            controller.blockPainter();
-            controller.updateScoreLabel();
-            if(!game.checkIsAnyMovePossible())
-            {
-                controller.handleBack();
-            }
-
-        });
-
-        //TODO CHECK ENDING CONDITION
-
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, controller.moveEventHandler);
         Container.stage.show();
 
     }
 
     public String gettingNewUserName() {
-        String newUsername="";
+        String newUsername = "";
         TextInputDialog textInputDialog = new TextInputDialog();
         textInputDialog.setTitle("New User Name");
         textInputDialog.setHeaderText("Please Enter a new UserName");
@@ -177,12 +122,10 @@ public class MainMenuFXMLController {
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()) {
             newUsername = result.get();
-            if (Account.accountExist(newUsername ))
-            {
+            if (Account.accountExist(newUsername)) {
                 throw new UserExistException();
             }
-            if (newUsername.length()<=0)
-            {
+            if (newUsername.length() <= 0) {
                 throw new EmptyFieldException();
             }
 
@@ -191,20 +134,17 @@ public class MainMenuFXMLController {
         return newUsername;
     }
 
-    public void handlChangeUserName()
-    {
+    public void handlChangeUserName() {
         String newUserName = "";
         try {
 
             newUserName = gettingNewUserName();
-        }
-        catch (MyExceptions e)
-        {
-            Container.alertShower(e,"Invalid UserName");
+        } catch (MyExceptions e) {
+            Container.alertShower(e, "Invalid UserName");
             return;
         }
 
-        Account.getLoginedAccount().setUsername(newUserName );
+        Account.getLoginedAccount().setUsername(newUserName);
         updateLoginedUser();
 
     }

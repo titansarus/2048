@@ -79,7 +79,7 @@ public class Game {
         return false;
     }
 
-    public boolean checkIfBlockCanMove(Block block, int row, int column) {
+    private boolean checkIfBlockCanMove(Block block, int row, int column) {
         if (block == null) {
             return false;
         }
@@ -89,26 +89,26 @@ public class Game {
 
     }
 
-    public boolean checkIfLeftMovePossibleForBlock(Block block, int row, int column) {
+    private boolean checkIfLeftMovePossibleForBlock(Block block, int row, int column) {
         return (block != null && column - 1 >= 0 && (board[row][column - 1] == null || board[row][column - 1].getNum() == block.getNum()));
     }
 
-    public boolean checkIfRightMovePossibleForBlock(Block block, int row, int column) {
+    private boolean checkIfRightMovePossibleForBlock(Block block, int row, int column) {
         return (block != null && column + 1 < getN() && (board[row][column + 1] == null || board[row][column + 1].getNum() == block.getNum()));
     }
 
-    public boolean checkIfDownMovePossibleForBlock(Block block, int row, int column) {
+    private boolean checkIfDownMovePossibleForBlock(Block block, int row, int column) {
         return (block != null && row + 1 < getN() && (board[row + 1][column] == null || board[row + 1][column].getNum() == block.getNum()));
     }
 
-    public boolean checkIfUpMovePossibleForBlock(Block block, int row, int column) {
+    private boolean checkIfUpMovePossibleForBlock(Block block, int row, int column) {
         return (block != null && row - 1 >= 0 && (board[row - 1][column] == null || board[row - 1][column].getNum() == block.getNum()));
     }
 
 
     public void randomNumberPutter(int numberOfRandoms) {
         ArrayList<Integer> emptyCells = gettingEmptyCells();
-        int k=0;
+        int k = 0;
         for (int i = 0; i < (numberOfRandoms < emptyCells.size() ? numberOfRandoms : emptyCells.size()); i++) {
             Random random = new Random();
             int pointIndex = random.nextInt(gettingEmptyCells().size());
@@ -137,8 +137,8 @@ public class Game {
         }
     }
 
-    public void shiftColumnDown(int column) {
-        Thread t1 = new Thread(()-> {
+    private void shiftColumnDown(int column) {
+        Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
                 for (int j = getN() - 1 - 1; j >= 0; j--) {
                     if (getBoard()[j][column] != null && getBoard()[j + 1][column] == null) {
@@ -164,8 +164,8 @@ public class Game {
         t1.start();
     }
 
-    public void shiftColumnUp(int column) {
-        Thread t1 = new Thread(()-> {
+    private void shiftColumnUp(int column) {
+        Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
                 for (int j = 1; j <= getN() - 1; j++) {
                     if (getBoard()[j][column] != null && getBoard()[j - 1][column] == null) {
@@ -192,8 +192,8 @@ public class Game {
 
     }
 
-    public void shiftRowLeft(int row) {
-        Thread t1 = new Thread(()-> {
+    private void shiftRowLeft(int row) {
+        Thread t1 = new Thread(() -> {
             for (int i = 0; i < getN(); i++) {
                 for (int j = 1; j <= getN() - 1; j++) {
                     if (getBoard()[row][j] != null && getBoard()[row][j - 1] == null) {
@@ -220,10 +220,10 @@ public class Game {
 
     }
 
-    public void shiftRowRight(int row) {
+    private void shiftRowRight(int row) {
 
-            Thread t1 = new Thread(() ->
-            {
+        Thread t1 = new Thread(() ->
+        {
             for (int i = 0; i < getN(); i++) {
                 for (int j = getN() - 1 - 1; j >= 0; j--) {
                     if (getBoard()[row][j] != null && getBoard()[row][j + 1] == null) {
@@ -246,12 +246,12 @@ public class Game {
                 }
             }
         });
-            t1.start();
+        t1.start();
 
 
     }
 
-    public boolean isAnyEmptyCells() {
+    private boolean isAnyEmptyCells() {
         ArrayList<Integer> emptyCells = gettingEmptyCells();
         if (emptyCells.size() > 0) {
             return true;
@@ -259,7 +259,7 @@ public class Game {
         return false;
     }
 
-    public ArrayList<Integer> gettingEmptyCells() {
+    private ArrayList<Integer> gettingEmptyCells() {
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -271,7 +271,7 @@ public class Game {
         return result;
     }
 
-    public void increaseScore(int i) {
+    private void increaseScore(int i) {
         setScore(getScore() + i);
     }
 
@@ -303,7 +303,7 @@ public class Game {
         return score;
     }
 
-    public void setScore(int score) {
+    private void setScore(int score) {
         this.score = score;
     }
 
@@ -322,7 +322,7 @@ public class Game {
 
     }
 
-    public  void shiftRight() {
+    public void shiftRight() {
         for (int i = 0; i < this.getN(); i++) {
             this.shiftRowRight(i);
         }

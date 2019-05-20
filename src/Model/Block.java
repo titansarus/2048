@@ -1,15 +1,14 @@
 package Model;
 
 public class Block {
-    int num;
-    boolean isChanged = false;
+    private int num;
+    private boolean isChanged = false;
 
-    public void doubleNum()
-    {
-        setNum(getNum()*2);
+    void doubleNum() {
+        setNum(getNum() * 2);
     }
 
-    public Block(int num) {
+    Block(int num) {
         this.num = num;
     }
 
@@ -17,15 +16,15 @@ public class Block {
         return num;
     }
 
-    public void setNum(int num) {
+    private void setNum(int num) {
         this.num = num;
     }
 
-    public boolean isChanged() {
+    boolean isChanged() {
         return isChanged;
     }
 
-    public void setChanged(boolean changed) {
+    void setChanged(boolean changed) {
         isChanged = changed;
     }
 }

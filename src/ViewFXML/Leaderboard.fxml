@@ -7,31 +7,37 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(from 0px 10px to 100px 100px,#c1bfea , #d8d0ef);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LeaderboardFXMLController">
-   <children>
-      <Button fx:id="btnExit" layoutX="387.0" layoutY="554.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Exit" />
-      <Button fx:id="btnBack" layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Back" />
-      <GridPane fx:id="gridLeaderBoard" hgap="10.0" layoutX="100.0" layoutY="66.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="92.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="10.0" prefWidth="88.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="26.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <Label fx:id="lblLoginedUser" layoutX="317.0" layoutY="14.0" prefHeight="17.0" prefWidth="167.0" text="s" />
-   </children>
+<AnchorPane prefHeight="600.0" prefWidth="500.0"
+            style="-fx-background-color: linear-gradient(from 0px 10px to 100px 100px,#c1bfea , #d8d0ef);"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.LeaderboardFXMLController">
+    <children>
+        <Button fx:id="btnExit" layoutX="387.0" layoutY="554.0" mnemonicParsing="false" onAction="#handleExit"
+                prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Exit"/>
+        <Button fx:id="btnBack" layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#handleBack"
+                prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Back"/>
+        <GridPane fx:id="gridLeaderBoard" hgap="10.0" layoutX="100.0" layoutY="66.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="92.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="10.0" prefWidth="88.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="26.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="60.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+        </GridPane>
+        <Label fx:id="lblLoginedUser" layoutX="317.0" layoutY="14.0" prefHeight="17.0" prefWidth="167.0" text="s"/>
+    </children>
 </AnchorPane>
