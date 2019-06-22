@@ -7,26 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0"
-            style="-fx-background-color: linear-gradient(from 0px 10px to 100px 100px,#bce0ee , #29b8e5);"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controllers.LoginFXMLController">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(from 0px 10px to 100px 100px,#bce0ee , #29b8e5);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginFXMLController">
     <children>
-        <Button layoutX="245.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleBtnLogin" prefHeight="33.0"
-                prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Login"/>
-        <Button layoutX="58.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="33.0"
-                prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Sign Up"/>
-        <TextField fx:id="txtUsername" layoutX="172.0" layoutY="90.0" promptText="Username"/>
-        <PasswordField fx:id="txtPassword" layoutX="172.0" layoutY="145.0" promptText="Password"/>
-        <Label fx:id="lblStatus" layoutX="23.0" layoutY="42.0" prefHeight="23.0" prefWidth="329.0" text="Hello"
-               visible="false"/>
-        <Text layoutX="58.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username"/>
-        <Text layoutX="58.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password"/>
-        <Button fx:id="btnLogout" layoutX="58.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBtnLogout"
-                prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: ff6677;" text="Logout"/>
-        <Label fx:id="lblLoginedUser" layoutX="227.0" layoutY="14.0" prefHeight="17.0" prefWidth="167.0" text="s"/>
-        <Button fx:id="handleBtnMainMenu" layoutX="226.0" layoutY="353.0" mnemonicParsing="false"
-                onAction="#handleBtnMainMenu" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: ff6677;"
-                text="Go To Main Menu"/>
+        <Button layoutX="272.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleBtnLogin" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Login" />
+        <Button layoutX="40.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #ffcc99;" text="Sign Up" />
+        <TextField fx:id="txtUsername" layoutX="172.0" layoutY="90.0" promptText="Username" />
+        <PasswordField fx:id="txtPassword" layoutX="172.0" layoutY="145.0" promptText="Password" />
+        <Label fx:id="lblStatus" layoutX="23.0" layoutY="42.0" prefHeight="23.0" prefWidth="329.0" text="Hello" visible="false" />
+        <Text layoutX="58.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+        <Text layoutX="58.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+        <Button fx:id="btnLogout" layoutX="58.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBtnLogout" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: ff6677;" text="Logout" />
+        <Label fx:id="lblLoginedUser" layoutX="227.0" layoutY="14.0" prefHeight="17.0" prefWidth="167.0" text="s" />
+        <Button fx:id="handleBtnMainMenu" layoutX="226.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBtnMainMenu" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: ff6677;" text="Go To Main Menu" />
+      <Button layoutX="132.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleChangeUsername" prefHeight="33.0" prefWidth="136.0" style="-fx-background-color: #ffcc99;" text="Change Username" />
     </children>
 </AnchorPane>

@@ -106,8 +106,14 @@ public class GameBoardFXMLController {
             ret = "#F67C5F";
         } else if (block.getNum() == 64) {
             ret = "#F65E3B";
+        } else if (block.getNum() == 128) {
+            ret = "#edcf72";
+        } else if (block.getNum() == 256) {
+            ret = "#edcc61";
+        } else if (block.getNum() == 512) {
+            ret = "#edc851";
         } else {
-            ret = "#F9F6F2";
+            ret = "#edc53f";
         }
 
         return ret;

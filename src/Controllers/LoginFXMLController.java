@@ -3,16 +3,16 @@ package Controllers;
 import Model.Account;
 import ProgramExceptions.MyExceptions;
 import ProgramExceptions.NoLoginedAccountException;
+import ProgramExceptions.UserExistException;
 import ViewFXML.ConstantMessages;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.Optional;
 
 
 public class LoginFXMLController {
@@ -51,6 +51,34 @@ public class LoginFXMLController {
         } else {
             Container.alertShower(new NoLoginedAccountException(), "No Logined Account");
         }
+    }
+
+
+    public void handleChangeUsername() {
+        if (Account.getLoginedAccount() == null) {
+            Container.alertShower(new NoLoginedAccountException(), "No Logined Account");
+            return;
+        }
+
+
+        TextInputDialog dialog = new TextInputDialog(Account.getLoginedAccount().getUsername());
+        dialog.setTitle("Change Username");
+        dialog.setHeaderText("Change Username");
+        dialog.setContentText("Please enter a new Username:");
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            if (!Account.accountExist(result.get()) || result.get().equals(Account.getLoginedAccount().getUsername())) {
+                Account.getLoginedAccount().setUsername(result.get());
+                updateLoginedUser();
+            } else {
+                Container.alertShower(new UserExistException(), "A User Exist with this username");
+            }
+
+        }
+
+
     }
 
     public void updateLoginedUser() {
